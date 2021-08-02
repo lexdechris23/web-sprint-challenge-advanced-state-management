@@ -28,7 +28,7 @@ export const fetchSmurfs = () =>{
     }
 }
 
-export const errorMessage = (error) => {
+export const errorAction = (error) => {
     return {
       type: ERROR,
       payload: error,
