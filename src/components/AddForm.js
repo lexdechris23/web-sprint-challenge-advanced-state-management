@@ -94,9 +94,9 @@ const AddForm = (props) => {
     };
     
     const mapStateToProps = (state) => {
-      return {
-        errorMessage: state.errorMessage,
-      };
+      return ({
+        errorMessage: state.error
+      });
     };
     export default connect(mapStateToProps, { errorAction, addSmurfs })(AddForm);
 
