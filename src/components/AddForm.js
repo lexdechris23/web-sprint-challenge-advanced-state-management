@@ -17,45 +17,88 @@ const AddForm = (props) => {
         });
     }
 
-    const handleSubmit = e => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         if (state.name === "" || state.position === "" || state.nickname === "") {
-            props.errorMessage("Name, position and nickname fields are required.");
-        }else{
-            props.addSmurfs(state)
+          alert("Fill all required fields");
+        } else {
+          props.addSmurfs({
+            name: state.name,
+            nickname: state.nickname,
+            position: state.position,
+            description: state.description,
+            id: Math.random(),
+          });
         }
-    }
+    };
 
-    const errorMessage = state.errorMessage;
+    const errorMessage = props.errorMessage;
 
-    return(<section>
-        <h2>Add Smurf</h2>
-        <form onSubmit={handleSubmit}>
+    return (
+        <section>
+          <h2>Add Smurf</h2>
+          <form onSubmit={handleSubmit}>
             <div className="form-group">
-                <label htmlFor="name">Name:</label><br/>
-                <input onChange={handleChange} value={state.name} name="name" id="name" />
+              <label htmlFor="name">Name:</label>
+              <br />
+              <input
+                onChange={handleChange}
+                value={state.name}
+                name="name"
+                id="name"
+              />
             </div>
             <div className="form-group">
-                <label htmlFor="position">Position:</label><br/>
-                <input onChange={handleChange} value={state.position} name="position" id="position" />
+              <label htmlFor="position">Position:</label>
+              <br />
+              <input
+                onChange={handleChange}
+                value={state.position}
+                name="position"
+                id="position"
+              />
             </div>
             <div className="form-group">
-                <label htmlFor="nickname">Nickname:</label><br/>
-                <input onChange={handleChange} value={state.nickname} name="nickname" id="nickname" />
+              <label htmlFor="nickname">Nickname:</label>
+              <br />
+              <input
+                onChange={handleChange}
+                value={state.nickname}
+                name="nickname"
+                id="nickname"
+              />
             </div>
             <div className="form-group">
-                <label htmlFor="description">Description:</label><br/>
-                <textarea onChange={handleChange} value={state.description} name="description" id="description" />
+              <label htmlFor="description">Description:</label>
+              <br />
+              <textarea
+                onChange={handleChange}
+                value={state.description}
+                name="description"
+                id="description"
+              />
             </div>
-            {
-                errorMessage && <div data-testid="errorAlert" className="alert alert-danger" role="alert">Error: {errorMessage}</div>
-            }
-            <button onClick={handleSubmit}>Submit Smurf</button>
-        </form>
-    </section>);
-}
-
-export default connect(null,{addSmurfs,errorMessage})(AddForm);
+            {errorMessage && (
+              <div
+                data-testid="errorAlert"
+                className="alert alert-danger"
+                role="alert"
+              >
+                Error: {errorMessage}
+              </div>
+            )}
+            <button>Submit Smurf</button>
+          </form>
+        </section>
+      );
+    };
+    
+    const mapStateToProps = (state) => {
+      return {
+        errorMessage: state.errorMessage,
+      };
+    };
+    export default connect(mapStateToProps, { errorMessage, addSmurfs })(AddForm);
 
 //Task List:
 //1. Connect the errorMessage, setError and addSmurf actions to the AddForm component.
